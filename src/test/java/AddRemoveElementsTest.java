@@ -1,11 +1,9 @@
-package Homework_9_1;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 
@@ -27,6 +25,7 @@ public class AddRemoveElementsTest {
         options.addArguments("--headless");
         // объявляю тестовый браузер
         WebDriver driver = new ChromeDriver(options);
+        SoftAssert softAssert = new SoftAssert();
         // неявное ожидание
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         // открытие страницы по указанному урлу
@@ -36,13 +35,14 @@ public class AddRemoveElementsTest {
         driver.findElement(By.xpath("//button[text()='Add Element']")).click();
         // проверяю, что на странице добавилось два элемента Delete
         int countElementsStepOne = driver.findElements(By.xpath("//button[text()='Delete']")).size();
-        Assert.assertEquals(countElementsStepOne, 2);
+        softAssert.assertEquals(countElementsStepOne, 2);
         // нажимаю один раз кнопку Delete
         driver.findElement(By.xpath("//button[text()='Delete']")).click();
         // проверяю, что на странице остался один элемент Delete
         int countElementsStepTwo = driver.findElements(By.xpath("//button[text()='Delete']")).size();
-        Assert.assertEquals(countElementsStepTwo, 1);
+        softAssert.assertEquals(countElementsStepTwo, 1);
         // закрываю браузер
         driver.quit();
+        softAssert.assertAll();
     }
 }

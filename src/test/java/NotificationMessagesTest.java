@@ -1,21 +1,19 @@
-package Homework_9_5;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 
 /*
 Автоматизировать тесты для приложения: http://the-internet.herokuapp.com/
 Каждая страница - отдельный класс и тест.
-Typos - Проверить соответствие параграфа орфографии.
+Notification Messages - кликнуть на кнопку, дождаться появления нотификации, проверить соответствие текста ожиданиям.
 */
 
-public class TyposTest {
+public class NotificationMessagesTest {
 
     @Test
     public void checkAddRemoveElements() {
@@ -26,19 +24,18 @@ public class TyposTest {
         options.addArguments("--headless");
         // объявляю тестовый браузер
         WebDriver driver = new ChromeDriver(options);
-        SoftAssert softAssert = new SoftAssert();
         // неявное ожидание
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         // открытие страницы по указанному урлу
-        driver.get("https://the-internet.herokuapp.com/typos");
-        // 10 раз проверяю состояние текста на странице
-        for (int i = 0; i < 10; i++) {
-            String textCorrect = driver.findElement(By.xpath("(//p)[2]")).getText();
-            softAssert.assertEquals(textCorrect, "Sometimes you'll see a typo, other times you won't.");
-            driver.navigate().refresh();
-        }
+        driver.get("https://the-internet.herokuapp.com/notification_message_rendered");
+        // кликаю на ссылку Click here
+        driver.findElement(By.xpath("//*[@id=\"content\"]/div/p/a")).click();
+        // проверяю нотификацию на текст Action successful
+        String textInsideNotification = driver.findElement(By.id("flash")).getText();
+        // убираю из полученного текста крестик в конце и разделители в виде переноса на новую строку
+        String textInsideNotificationModified = textInsideNotification.replace("×", "").trim();
+        Assert.assertEquals(textInsideNotificationModified, "Action successful");
         // закрываю браузер
         driver.quit();
-        softAssert.assertAll();
     }
 }

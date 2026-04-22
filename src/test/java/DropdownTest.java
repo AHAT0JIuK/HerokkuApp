@@ -1,12 +1,10 @@
-package Homework_9_3;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 
@@ -28,6 +26,7 @@ public class DropdownTest {
         options.addArguments("--headless");
         // объявляю тестовый браузер
         WebDriver driver = new ChromeDriver(options);
+        SoftAssert softAssert = new SoftAssert();
         // неявное ожидание
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         // открытие страницы по указанному урлу
@@ -41,12 +40,13 @@ public class DropdownTest {
         select.selectByIndex(1);
         // далее работаю с атрибутом selected у элементов дропдауна. у выбранного элемента он равен true, но это строка поэтому перевожу строку в булево значение и затем сравниваю его с true
         boolean selectOption = Boolean.parseBoolean(driver.findElement(By.xpath("//*[@id=\"dropdown\"]/option[2]")).getAttribute("selected"));
-        Assert.assertTrue(selectOption);
+        softAssert.assertTrue(selectOption);
         // выбираю элемент дропдауна Option 2 и проверяю, что она на самом деле выбран
         select.selectByIndex(2);
         selectOption = Boolean.parseBoolean(driver.findElement(By.xpath("//*[@id=\"dropdown\"]/option[3]")).getAttribute("selected"));
-        Assert.assertTrue(selectOption);
+        softAssert.assertTrue(selectOption);
         // закрываю браузер
         driver.quit();
+        softAssert.assertAll();
     }
 }
