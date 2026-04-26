@@ -17,7 +17,7 @@ Checkboxes - проверить, что первый чекбокс unchecked, �
 public class CheckboxesTest {
 
     @Test
-    public void checkAddRemoveElements() {
+    public void checkStatusCheckboxes() {
         // объявляю настройки для тестового браузера
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");

@@ -18,7 +18,7 @@ Dropdown - Взять все элементы дроп-дауна и прове�
 public class DropdownTest {
 
     @Test
-    public void checkAddRemoveElements() {
+    public void checkSelectDropdownOption() {
         // объявляю настройки для тестового браузера
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
