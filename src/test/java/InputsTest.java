@@ -19,7 +19,7 @@ Inputs - Проверить на возможность ввести разли�
 public class InputsTest {
 
     @Test
-    public void checkAddRemoveElements() {
+    public void checkInputChar() {
         // объявляю настройки для тестового браузера
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");

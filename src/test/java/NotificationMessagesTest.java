@@ -16,7 +16,7 @@ Notification Messages - кликнуть на кнопку, дождаться �
 public class NotificationMessagesTest {
 
     @Test
-    public void checkAddRemoveElements() {
+    public void checkTextNotification() {
         // объявляю настройки для тестового браузера
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
